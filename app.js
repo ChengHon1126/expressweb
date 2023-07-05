@@ -6,7 +6,7 @@ const booksRouter = require("./router/book.js");
 const aboutRouter = require("./router/about.js");
 
 app.get("/",function(req,res){
-    res.send("node.js servers12323")
+    res.send("node.js servers")
 });
 
 
