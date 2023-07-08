@@ -31,7 +31,7 @@ app.get("/shop",(req,res)=>{
 app.get("/data",(req,res)=>{
     res.json({
         name : "cheng", 
-        age : 18,
+        age : 19,
         message : "今天好熱喔～～"
     });
 })
