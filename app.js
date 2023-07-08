@@ -24,6 +24,18 @@ app.get("/",function(req,res){
     res.render("index.html");
 });
 
+app.get("/shop",(req,res)=>{
+    res.render("template.html");
+});
+
+app.get("/data",(req,res)=>{
+    res.json({
+        name : "cheng", 
+        age : 18,
+        message : "今天好熱喔～～"
+    });
+})
+
 
 //[module][3] 將 /books 的 resquest , 導入到 booksRouter 處理
 app.use("/books" , booksRouter);
