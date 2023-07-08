@@ -15,6 +15,7 @@ app.engine("html", hbs.__express);
 app.set("views", path.join(__dirname, "application","views"))
 
 // [3] 設定靜態檔的位置, (讀取 *.css/ *.js / *.jpg / *.png / *.mp4 / ... )
+// --> 處理 靜態檔 相關的 requests
 app.use( express.static(path.join(__dirname,"application")))
 
 app.get("/",function(req,res){
