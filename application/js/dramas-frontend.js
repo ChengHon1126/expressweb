@@ -9,15 +9,24 @@ $(function(){
         let type = $("#categories-select").val();
         console.log(type);
         $.ajax({
-            url  : "/dramas/list?type=" + type ,  // API 位置
-            type : "GET"   // requests 的方法
+            // url  : "/dramas/list",                // 1. 忘記帶 type
+            // url  : "/dramas/list?type=ABCD",      // 2. type 亂帶
+            url  : "/dramas/list?type=" + type ,  // 3. type 正常
+            type : "GET",   // requests 的方法
+            headers: {
+                "x-cheng-token":"NODEJS"
+            }
+
         })
         .then(res=>{
+            // 成功 -> status_code = 2xx , 3xx 
             console.log(res);
             createTable(res["result"]);
         })
         .catch(err=>{
+            // 失敗 -> status_code = 4xx , 5xx 
             console.log(err);
+            alert(err.responseJSON.message);
         })
     });
 
@@ -70,7 +79,11 @@ let insertNewRecord = ()=> {
     $.ajax({
         url  : "/dramas/data",
         type : "POST",
-
+        headers : {
+            // 1. token 沒帶
+            // "X-cheng-token" : "123",       // 2. token 帶錯
+            "X-cheng-token" : "NODEJS"  // 3. token 正確
+        },
         //// 以 application/x-www-form-urlencoded 資料傳送
         data : {
             category,
@@ -97,12 +110,13 @@ let insertNewRecord = ()=> {
     })
     .catch(err=>{
         console.log(err);
+        alert(err.responseJSON.message);
 
         if(err.status === 404){
             alert("找不到該 API !");
             return;
         };
         
-        alert("系統有誤 , 請稍後再試！");
+        // alert("系統有誤 , 請稍後再試！");
     });
 };

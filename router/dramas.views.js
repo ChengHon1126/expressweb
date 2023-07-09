@@ -35,7 +35,7 @@ router.get("/list", async (req, res) => {       //RESTful API  !!!!!!
         //過濾資料
         if (type === "全") {
             res.json({ result: data })
-        } else {
+        } else { 
             let filtereData = data.filter(ele => ele["category"] === type);
             res.json({ result: filtereData });
         }
