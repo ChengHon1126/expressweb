@@ -1,9 +1,24 @@
 $(function(){
   
     $("#drama-select-btn").click(function(){
-
         // [Coding]
-        createTable();
+        // createTable();
+
+        // 使用 Ajax 發 requests
+        // 並用 query_string 攜帶參數
+        let type = $("#categories-select").val();
+        console.log(type);
+        $.ajax({
+            url  : "/dramas/list?type=" + type ,  // API 位置
+            type : "GET"   // requests 的方法
+        })
+        .then(res=>{
+            console.log(res);
+            createTable(res["result"]);
+        })
+        .catch(err=>{
+            console.log(err);
+        })
     });
 
     $("#drama-insert-btn").click(function(){
@@ -53,7 +68,7 @@ let insertNewRecord = ()=> {
 
 
     $.ajax({
-        url  : "/dramas/createNewDramaData",
+        url  : "/dramas/data",
         type : "POST",
 
         //// 以 application/x-www-form-urlencoded 資料傳送
@@ -76,7 +91,7 @@ let insertNewRecord = ()=> {
     .then(r=>{
         if(r.message === "ok."){
             alert("更新完成！");
-            location.reload();
+            // location.reload();
         };
         
     })

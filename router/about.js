@@ -11,4 +11,7 @@ router.get("/user", (req,res)=>{
     })
 })
 
+// router.get("/us",(req,res)=>{
+//     res.render("aboutus.html");
+// })
 module.exports = router;
