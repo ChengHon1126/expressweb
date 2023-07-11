@@ -82,7 +82,7 @@ let insertNewRecord = ()=> {
         headers : {
             // 1. token 沒帶
             // "X-cheng-token" : "123",       // 2. token 帶錯
-            "X-cheng-token" : "NODEJS"  // 3. token 正確
+            "X-cheng-token" : "ABX"  // 3. token 正確
         },
         //// 以 application/x-www-form-urlencoded 資料傳送
         data : {

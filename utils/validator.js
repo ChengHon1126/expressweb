@@ -1,3 +1,5 @@
+const session = require("express-session");
+
  // 1. 檢查 headers 是否有 token
  let isTokenExist = (req, res, next) => {    
     if( !req.headers["x-cheng-token"] ){
@@ -5,8 +7,6 @@
         res.status(400).json({message: "token 人呢？！？！？！？"});
     }else next();
 }
-
-
 
 // 2. 檢查 token 值 是否正確
 let isTokenValid =( req, res, next)=>{
@@ -17,7 +17,39 @@ let isTokenValid =( req, res, next)=>{
     }else next();
 }
 
+
+let isAccountandPasswdExist = (req,res,next)=>{
+    if(!req.body.account || !req.body.passwd){
+        res.status(400).json({ message: "帳號 or 密碼 人呢？？？" })
+    }else{
+        next();
+    }
+}
+
+
+let isUserValid = (req,res,next)=>{
+    if(!(req.body.account==="cheng"&&req.body.passwd==="123")){
+        res.status(400).json({message:"帳號 or 密碼 錯誤"});
+    }else{
+        next();
+    }
+}
+
+
+let setSessionInfo = (req,res,next)=>{
+    console.log("userInfo")
+    req.session.userInfo= {
+        name : "cheng",
+        isLogined : true
+    }
+    console.log(req.session);
+    next();
+}
+
 module.exports = {
     "isTokenExist" : isTokenExist,
-    "isTokenValid" : isTokenValid
+    "isTokenValid" : isTokenValid,
+    "isAccountandPasswdExist" : isAccountandPasswdExist,
+    "isUserValid" : isUserValid,
+    "setSessionInfo": setSessionInfo
 };

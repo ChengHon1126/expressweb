@@ -2,6 +2,10 @@ const express = require("express");
 const fs = require("fs");
 const router = express.Router();
 const validator = require("../utils/validator.js");
+// 此時 validator 變數即為 {
+//     "isTokenExist" : isTokenExist,   // value 為 middleware 本人
+//     "isTokenValid" : isTokenValid
+// };
 
 let readFilePromise = (dataPath) => {
     return new Promise((resolve, reject) => {
@@ -16,13 +20,18 @@ let readFilePromise = (dataPath) => {
 router.get("/page", (req, res) => {
     res.render("dramas.html");
 });
+// .use -> request 100% 會經過的 Middleware
+router.use(
+    validator.isTokenExist,
+    validator.isTokenValid
+)
 // GET /dramas/list  --> 取得資料
 // [work1] 加入參數檢查 Middleware
 // [work3] 使用 公用的 Middleware（實名 Middleware）
 router.get("/list",
-
-    validator.isTokenExist,
-    validator.isTokenValid,
+    /////////////// 使用 validator.js 的 Middleware 
+    // validator.isTokenExist,
+    // validator.isTokenValid,
 
     // 1. 檢查 type 參數 是否存在
     (req,res,next)=>{
@@ -69,21 +78,9 @@ router.get("/list",
 // POST /dramas/CreateNewDramaData  --> 新增資料 
 // [work2] 加入 token 檢查
 router.post("/data",
-    // 1. 檢查 headers 是否有 token
-    (req, res, next) => {    
-        if( !req.headers["x-cheng-token"] ){
-            console.log("[Middleware 1] 無 token 值")
-            res.status(400).json({message: "token 人呢？！？！？！？"});
-        }else next();
-    },
-    // 2. 檢查 token 值 是否正確
-    (req, res, next)=>{
-        if( req.headers["x-cheng-token"] !== "NODEJS"){
-
-            // status_code -> 403 , 表示無權限 (Fornidden.)
-            res.status(403).json({message: "您沒有權限！！！！！"});
-        }else next();
-    },
+    // /////////////// 使用 validator.js 的 Middleware 
+    // validator.isTokenExist, //檢查 token 是否存在
+    // validator.isTokenValid, //檢查 token 是否正確
     async (req, res) => {
         try {
             
