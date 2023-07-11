@@ -20,36 +20,45 @@ let isTokenValid =( req, res, next)=>{
 
 let isAccountandPasswdExist = (req,res,next)=>{
     if(!req.body.account || !req.body.passwd){
-        res.status(400).json({ message: "帳號 or 密碼 人呢？？？" })
-    }else{
-        next();
+        res.status(400).json({ message: "帳號 or 密碼 人呢？？？" });
+        return;
     }
+    next();
 }
 
 
 let isUserValid = (req,res,next)=>{
     if(!(req.body.account==="cheng"&&req.body.passwd==="123")){
         res.status(400).json({message:"帳號 or 密碼 錯誤"});
-    }else{
-        next();
+        return;
     }
+    next();
+
 }
 
 
 let setSessionInfo = (req,res,next)=>{
-    console.log("userInfo")
+    // console.log("userInfo")
     req.session.userInfo= {
         name : "cheng",
         isLogined : true
-    }
-    console.log(req.session);
+    };
+    // console.log(req.session);
     next();
 }
 
+let checkLogin = (req,res,next) =>{
+    if(!req.session.userInfo || req.session.userInfo.isLogined !== true){
+        res.redirect("/login");
+        return;
+    }
+    next();
+}
 module.exports = {
     "isTokenExist" : isTokenExist,
     "isTokenValid" : isTokenValid,
     "isAccountandPasswdExist" : isAccountandPasswdExist,
     "isUserValid" : isUserValid,
-    "setSessionInfo": setSessionInfo
+    "setSessionInfo": setSessionInfo,
+    "checkLogin" : checkLogin
 };

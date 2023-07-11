@@ -11,8 +11,11 @@ router.post("/",
     validator.setSessionInfo,
     // 4. response 回應前端
     (req, res, next) => {
-        res.json({ message: "OK!!!" });
-        console.log(req.session);
+        res.json({ 
+            message: "OK!!!" ,
+            redirect:  "/"
+        });
+        // console.log(req.session);
     }
 )
 
