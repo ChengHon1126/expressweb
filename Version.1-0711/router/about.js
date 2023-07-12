@@ -7,7 +7,7 @@ router.get("/", (req,res)=>{
 router.get("/user", (req,res)=>{
     res.json({
         userName : "cheng",
-        passWord : "1234"
+        passWord : "123"
     })
 })
 

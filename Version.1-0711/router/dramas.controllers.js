@@ -21,10 +21,10 @@ router.get("/page", (req, res) => {
     res.render("dramas.html");
 });
 // .use -> request 100% 會經過的 Middleware
-router.use(
-    validator.isTokenExist,
-    validator.isTokenValid
-)
+// router.use(
+//     validator.isTokenExist,
+//     validator.isTokenValid
+// )
 // GET /dramas/list  --> 取得資料
 // [work1] 加入參數檢查 Middleware
 // [work3] 使用 公用的 Middleware（實名 Middleware）
@@ -77,7 +77,7 @@ router.get("/list",
 
 // POST /dramas/CreateNewDramaData  --> 新增資料 
 // [work2] 加入 token 檢查
-router.post("/data",
+router.post("/detail",
     // /////////////// 使用 validator.js 的 Middleware 
     // validator.isTokenExist, //檢查 token 是否存在
     // validator.isTokenValid, //檢查 token 是否正確
