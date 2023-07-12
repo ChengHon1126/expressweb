@@ -9,5 +9,9 @@
 7. 新增 mongo 與 mongoose 套件 (230711)</br>
 <hr/> (230712) V1 版本打包， 將１－６項的檔案打包到 V1 之後 V2 版本為 連接 mongo 版本</br>
 <h2> Version 2 </h2></br>
+連線 mongoDB 並使用來存取 dramas 資料 的 CRUD 
 </br>
+<hr/> project 為 實作整合練習 </br>
+1. 建立 login API 並將 mongoDB 的會員資料 連接到 nodejs , 新增紀錄會員功能 使用 Sisson/cookie 存取會登入狀況到 redis <br/>
+
 ...
