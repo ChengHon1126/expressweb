@@ -123,18 +123,31 @@ findMember();
 // deleteMember();
 
 // 更新資料
-let updateMember = async()=>{
+// let updateMember = async()=>{
+//   try{
+//     let result = await memberModel.updateOne(
+//       {"name" : "kellyy"},
+//       {"$set" : {
+//         "age" : 24
+//       }}
+//     );
+//     console.log("OK!", result);
+//   }catch(err){
+
+//   }
+// };
+
+// updateMember();
+
+let tset = async()=>{
   try{
-    let result = await memberModel.updateOne(
-      {"name" : "kellyy"},
-      {"$set" : {
-        "age" : 24
-      }}
-    );
-    console.log("OK!", result);
-  }catch(err){
+    let data = await dramaModel.findOne({},{"dramaId":1}).sort({"dramaId":-1});
+    console.log(data["dramaId"]);
 
+    conn.close();
+  }catch(err) {
+    console.log(err);
   }
-};
 
-updateMember();
+}
+tset();
