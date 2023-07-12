@@ -15,17 +15,19 @@ const validator = require("./utils/validator.js");
 
 /////////////////////////
 // [Session] 外存
-// npm install redis@v3 connect-redis
+// npm install redis@v4 connect-redis
+// redis 為 v4 版本 4.6.7 , connect-redis 為7.0.1
+
+// 追加 connect-redis 套件 （ 專門為 express 設計的對接套件 ）v4版本使用需要加 .default .
+const RedisStore = require("connect-redis").default;
+
 
 // 追加 redis 套件 （ Node.js 使用 ）
-
-const RedisStore = require("connect-redis").default;
 const redis = require("redis");
 const redisClient = redis.createClient(); 
-let redisStore = new RedisStore({
-    client: redisClient,
-  })
-// 追加 connect-redis 套件 （ 專門為 express 設計的對接套件 ）
+// 
+redisClient.connect().catch(console.error);
+
 
 /////////////////////////
 app.engine("html", hbs.__express);
@@ -42,12 +44,12 @@ app.use(bodyParser.urlencoded({
 // 處理 session 資料的 Middleware
 // 後面才可以用 req.session 做資料存取
 app.use(session({
-    store : redisStore,  // session 存放資料的地方
+    store : new RedisStore({ client : redisClient}),  // session 存放資料的地方
     secret : "abcd1234" ,  // session 資料加密使用
     resave : true,          // 不論修改 , 是否要回存到 store 上
     saveUninitialized : false, // 初始化的 session , 是否要存到 store 上
     name   : "_ntust_tutorial_id",  // cookie 的 key 值
-    expires    : 24*60*60*1             // session 資料有效時間 (以 s 為單位)
+    ttl    : 24*60*60*1             // session 資料有效時間 (以 s 為單位)
 }));
 
 app.use((req,res,next)=>{
