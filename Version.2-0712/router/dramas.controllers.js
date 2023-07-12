@@ -68,7 +68,7 @@ router.delete("/detail/:dramaId",async(req,res)=>{
     try{
         let dramaId = req.params.dramaId;
         // console.log(dramaId);
-        let result = await model.dramas.deleteMany(
+        let result = await model.dramas.deleteOne(
             {"dramaId": dramaId }
         );
 
