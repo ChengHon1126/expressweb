@@ -13,5 +13,7 @@
 </br>
 <hr/> project 為 實作整合練習 </br>
 1. 建立 login API 並將 mongoDB 的會員資料 連接到 nodejs , 新增紀錄會員功能 使用 Sisson/cookie 存取會登入狀況到 redis <br/>
+2. 最後更新 完成 project 檔案 （新增 todolist 頁面）;<br/>
 
-...
+<h1> END </h1>
+<hr/>

@@ -8,7 +8,7 @@ let dramaSchema = new mongoose.Schema({
     "name"     : String,
     "score"    : Number,
   },{ 
-    collection: "dramas_table",
+    collection: "drama",
     versionKey: false
   }
 );

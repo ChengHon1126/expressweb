@@ -144,20 +144,22 @@ let updateDramaDetail = function(){
     })
     .then(r=>{
         if(r.message === "ok.") alert("修改完成！");
-        
     })
     .catch(err=>{
         console.log(err);
-
         if(err.status === 404){
             alert("找不到該 API !");
             return;
         };
+        if(err.status === 400){
+            alert("找不到 DramaId, 請稍後再試！");
+            return;
+        };
         
-        alert("系統有誤 , 請稍後再試！");
+        alert("系統有誤, 請稍後再試！");
     });
 
-};
+}
 
 
 let deleteDramaDetail = function(dramaId){
@@ -175,6 +177,10 @@ let deleteDramaDetail = function(dramaId){
 
         if(err.status === 404){
             alert("找不到該 API !");
+            return;
+        };
+        if(err.status === 400){
+            alert("DramaId 不存在, 請稍後再試");
             return;
         };
         

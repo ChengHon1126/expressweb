@@ -22,8 +22,10 @@ const authRouter     = require("./router/auth");
 // const imagesRouter   = require("./router/images");
 
 ////////////////////////////
-//// hbs bodyParser setting.
+//// hbs and bodyParser setting.
+// 設定模板引擎
 app.engine("html", hbs.__express);
+// 設定靜態檔案位置
 app.set("views", path.join(__dirname, "application","views"))
 app.use( express.static(path.join(__dirname,"application")))
 
@@ -57,14 +59,15 @@ app.use("/auth",authRouter);
 
 app.use(`/api-docs`,apiDocs);
 
-app.use((req,res,next)=>{
-  console.log(req.session);
-  next();
-})
+// app.use((req,res,next)=>{
+//   console.log(req.session);
+//   next();
+// })
 
 
 app.get("/",validator.checkLogined,(req,res)=>{
-  res.render("welcome.html");
+  let name = req.session.userInfo.name;
+  res.render("welcome.html" ,{templateName : name} );
 });
 
 app.get("/welcome",validator.checkLogined,(req,res)=>{
